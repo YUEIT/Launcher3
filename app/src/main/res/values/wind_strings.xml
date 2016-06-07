@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="wallpaper_small">
+        <item>@drawable/wallpaper1</item>
+        <item>@drawable/wallpaper2</item>
+        <item>@drawable/wallpaper3</item>
+        <item>@drawable/wallpaper4</item>
+        <item>@drawable/wallpaper5</item>
+        <item>@drawable/wallpaper6</item>
+	</string-array>
+	<string-array name="wallpaper">
+        <item>@drawable/wind_theme_main_bg_01</item>
+        <item>@drawable/wind_theme_main_bg_02</item>
+        <item>@drawable/wind_theme_main_bg_03</item>
+        <item>@drawable/wind_theme_main_bg_04</item>
+        <item>@drawable/wind_theme_main_bg_05</item>
+        <item>@drawable/wind_theme_main_bg_06</item>
+	</string-array>
+    <string-array name="swipe_effect">
+        <item>@drawable/effects_standard</item>
+        <item>@drawable/effects_cubeout</item>
+        <item>@drawable/effects_stack</item>
+        <item>@drawable/effects_fanshaped</item>
+    </string-array>
+    <string-array name="swipe_effect_text">
+        <item>@string/effects_standard</item>
+        <item>@string/effects_cubeout</item>
+        <item>@string/effects_stack</item>
+        <item>@string/effects_fanshaped</item>
+    </string-array>
+</resources>

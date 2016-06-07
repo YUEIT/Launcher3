@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_icon_bg_scale" format="float" type="dimen">1.0</string>
+    <integer name="theme_1_icon_padding" >0</integer>
+    <integer name="theme_2_icon_padding" >0</integer>
+    <integer name="theme_3_icon_padding" >0</integer>
+    <integer name="theme_4_icon_padding" >0</integer>
+    <integer name="theme_5_icon_padding" >0</integer>
+    <integer name="theme_6_icon_padding" >10</integer>
+    <integer name="folder_edge_margin_x" >20</integer>
+    <integer name="folder_edge_margin_y" >22</integer>
+    <integer name="folder_item_edge_margin_x" >5</integer>
+    <integer name="folder_item_edge_margin_y" >24</integer>
+</resources>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- android system icons -->                 
+    <item component="com.android.browser" drawable="theme_05_ic_browser" ></item>
+    <item component="com.android.calculator2" drawable="theme_05_ic_calculator" ></item>
+    <item component="com.android.calendar" drawable="theme_05_ic_calendar" ></item>
+    <item component="com.android.contacts" drawable="theme_05_ic_contacts" ></item>
+    <item component="com.android.deskclock" drawable="theme_05_ic_clock" ></item>
+    <item component="com.android.dialer" drawable="theme_05_ic_dialer" ></item>
+    <item component="com.android.email" drawable="theme_05_ic_email" ></item>
+    <item component="com.android.mms" drawable="theme_05_ic_message" ></item>
+    <item component="com.android.music" drawable="theme_05_ic_music" ></item>
+    <item component="com.android.settings" drawable="theme_05_ic_settings" ></item>
+    <item component="com.android.quicksearchbox" drawable="theme_05_ic_search" ></item>
+    <item component="com.android.fmradio" drawable="theme_05_ic_radio" ></item>
+    
+    <!-- gms app icons -->
+    <item component="com.google.android.apps.chrome.Main" drawable="theme_05_ic_gms_chrome" ></item>
+    <item component="com.google.android.gms.games.ui.destination.main.MainActivity" drawable="theme_05_ic_gms_game"></item>
+    <item component="com.google.android.gm.ConversationListActivityGmail" drawable="theme_05_ic_gms_gmail" ></item>
+    <item component="com.google.android.apps.docs.app.NewMainProxyActivity" drawable="theme_05_ic_gms_drive" ></item>
+    <item component="com.google.android.ICON_MAPs.ICON_MAPsActivity" drawable="theme_05_ic_gms_map" ></item>
+    <item component="com.android.music.activitymanagement.TopLevelActivity" drawable="theme_05_ic_gms_music" ></item>
+    <item component="com.google.android.apps.plus.phone.ConversationListActivity" drawable="theme_05_ic_gms_photos" ></item>
+    <item component="com.google.android.apps.plus.phone.HomeActivity" drawable="theme_05_ic_gms_plus" ></item>
+    <item component="com.google.android.gms.app.settings.GoogleSettingsActivity" drawable="theme_05_ic_gms_settings" ></item>
+    <item component="com.google.android.talk.SigningInActivity" drawable="theme_05_ic_gms_hangouts" ></item>
+    <item component="com.google.apps.dots.android.app.activity.CurrentsStartActivity" drawable="theme_05_ic_gms_magazine" ></item>
+    <item component="com.google.android.apps.books.app.BooksActivity" drawable="theme_05_ic_gms_book" ></item>
+    <item component="com.google.android.youtube.videos.EntryPoint" drawable="theme_05_ic_gms_movie" ></item>
+    <item component="com.google.android.googlequicksearchbox.VoiceSearchActivity" drawable="theme_05_ic_gms_voice" ></item>
+    <item component="com.google.android.googlequicksearchbox.SearchActivity" drawable="theme_05_ic_gms_search" ></item>
+    <item component="com.google.android.youtube.app.honeycomb.Shell$HomeActivity" drawable="theme_05_ic_gms_youtube" ></item>
+    <item component="com.android.vending.AssetBrowserActivity" drawable="theme_05_ic_gms_play" ></item>
+    <item component="com.google.android.apps.maps" drawable="theme_05_ic_gms_map" ></item>
+    
+    
+    <!-- mediatek app icons -->    
+    <item component="com.mediatek.filemanager" drawable="theme_05_ic_filemanager" ></item>
+    <item component="com.mediatek.fmradio" drawable="theme_05_ic_radio" ></item>
+    <item component="com.mediatek.notebook" drawable="theme_05_ic_note" ></item>
+    <item component="com.mediatek.todos" drawable="theme_05_ic_event" ></item>
+    <item component="com.mediatek.StkSelection" drawable="theme_05_ic_stk" ></item>
+    <item component="com.mediatek.videoplayer" drawable="theme_05_ic_video" ></item>
+    <item component="com.mediatek.datatransfer" drawable="theme_05_ic_backup" ></item>
+    <item component="com.mediatek.blemanager" drawable="theme_05_ic_blemanager" ></item>
+    <item component="com.mediatek.mco" drawable="theme_05_ic_mco" ></item>
+    
+    <!-- wind app icons -->    
+    <item component="com.mediatek.windvision.ui" drawable="theme_05_ic_dazzle" ></item>
+    <!-- add by zhangxutong -->
+    <item component="com.wos.wosthememanager.TabPageActivity" drawable="theme_05_ic_thememanager"></item>
+    <item component="com.wos.wosthememanager.OneKeyChangeThemeActivity" drawable="theme_05_ic_qucikchange"></item>
+    <item component="com.wind.windpowersaver" drawable="theme_05_ic_windpowersaver" ></item>
+    <item component="com.wos.privacyguard.MainActivity" drawable="theme_05_ic_privacyguard" ></item>
+    <item component="com.mephone.singlehand" drawable="theme_05_ic_singlehand" ></item>
+     
+	<item component="com.ucamera.ucam.CameraActivity" drawable="theme_05_ic_ucam" ></item>
+    <item component="com.ucamera.ucam.yude" drawable="theme_05_ic_ucamera" ></item>
+    <item component="com.ume.browser" drawable="theme_05_ic_browser" ></item>
+    <item component="com.android.soundrecorder" drawable="theme_05_ic_record" ></item>
+    <item component="com.android.gallery3d.app.GalleryActivity" drawable="theme_05_ic_gallery" ></item>
+    <item component="com.android.camera.CameraLauncher" drawable="theme_05_ic_camera" ></item>
+    <item component="com.android.documentsui" drawable="theme_05_ic_download" ></item>
+    <item component="com.android.stk" drawable="theme_05_ic_stk" ></item>
+    <item component="com.android.providers.downloads.ui.DownloadList" drawable="theme_05_ic_download" ></item>
+    
+     <!-- wos launcher -->
+    <item component="com.wos.launcher3.QsbBackground" drawable="screenpanel" ></item>
+	<item component="com.wos.launcher3.drawable_FolderPreviewBackground" drawable="portal_ring_inner_holo5" ></item>
+    <item component="com.wos.launcher3.drawable_FolderSharedOuterRingDrawable" drawable="portal_ring_outer_holo_wos" ></item>
+    <item component="com.wos.launcher3.drawable_FolderSharedInnerRingDrawable" drawable="portal_ring_inner_nolip_holo5" ></item>
+    <item component="com.wos.launcher3.drawable_AppIconBackground" drawable="theme_ic_bg5" ></item>
+</resources>
