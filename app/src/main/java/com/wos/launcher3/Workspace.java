@@ -2314,34 +2314,28 @@ public class Workspace extends SmoothPagedView
         setState(state);
         final boolean stateIsNormal = (state == State.NORMAL);
         final boolean stateIsSmall = (state == State.INFOLDER);
-        float finalBackgroundAlpha = (stateIsSmall) ? 1.0f : 0f;
         float finalHotseatAndPageIndicatorAlpha =  (stateIsSmall) ? 0f :1f ;
-        float finalOverviewPanelAlpha = stateIsSmall ? 1f : 0f;
-        float finalSearchBarAlpha = !stateIsNormal ? 0f : 0f;
+        float finalCurrentPageAlpha =  (stateIsSmall) ? 0f :1f ;
 
         boolean workspaceToFolder = (oldStateIsNormal && stateIsSmall);
         boolean folderToWorkspace = (oldStateIsSmall && stateIsNormal);
 
-        mNewScale = 1.0f;
         float finalWorkspaceTranslationY = stateIsSmall ? 0 : 0;
-        float finalWorkspaceTranslationX = stateIsSmall ? 0 : 0;
         float finalPageIndicatorTranslationY = stateIsSmall ? 0 : 0 ;
         float finalHotseatTranslationY = stateIsSmall ? 0 : 0 ;
-        float finalSearchBarTranslationY = stateIsSmall ? 100 : 0;
+
+        mNewScale = 1.0f;
         if (state != State.NORMAL) {
             if (stateIsSmall){
                 mNewScale = 0.9f;
             }
         }
 
-        final int duration ;
-        duration = getResources().getInteger(R.integer.config_overviewTransitionTime);
-        if (snapPage == -1) {
+        final int duration =  getResources().getInteger(R.integer.config_overviewTransitionTime);
+        /*if (snapPage == -1) {
             snapPage = getPageNearestToCenterOfScreen();
         }
-        snapToPage(snapPage, duration, mZoomInInterpolator);
-
-
+        snapToPage(snapPage, duration, mZoomInInterpolator);*/
 
         final View searchBar = mLauncher.getQsbBar();
         final View overviewPanel = mLauncher.getOverviewPanel();
@@ -2360,10 +2354,9 @@ public class Workspace extends SmoothPagedView
             scale.scaleX(mNewScale)
                     .scaleY(mNewScale)
                     .translationY(finalWorkspaceTranslationY)
-                    .alpha(finalHotseatAndPageIndicatorAlpha)
+                    .alpha(finalCurrentPageAlpha)
                     .setInterpolator(mZoomInInterpolator);
             anim.play(scale);
-            //luobiao@wind-mobi.com 2015-1-13
             LauncherViewPropertyAnimator mscale = new LauncherViewPropertyAnimator(hotseat);
             mscale.scaleX(mNewScale)
                     .scaleY(mNewScale)
