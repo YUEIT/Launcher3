@@ -42,12 +42,7 @@
         launcher:screen="1"
         launcher:x="1"
         launcher:y="2" />
-   <favorite
-        launcher:packageName="com.android.calendar"
-        launcher:className="com.android.calendar.AllInOneActivity"
-        launcher:screen="1"
-        launcher:x="2"
-        launcher:y="2" />
+
    <favorite
         launcher:packageName="com.mediatek.filemanager"
         launcher:className="com.mediatek.filemanager.FileManagerOperationActivity"

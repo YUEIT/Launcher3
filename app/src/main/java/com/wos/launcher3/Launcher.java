@@ -2024,6 +2024,9 @@ public class Launcher extends Activity
         Toast.makeText(this, getString(strId), Toast.LENGTH_SHORT).show();
     }
 
+    public View getLauncherView(){
+        return mLauncherView;
+    }
     public DragLayer getDragLayer() {
         return mDragLayer;
     }
@@ -3024,7 +3027,9 @@ public class Launcher extends Activity
         for (int i = 0;i < data.length; i++) {
             final View bgLayout = LayoutInflater.from(this).inflate(R.layout.set_wallpaper_item, null);
             bgLayout.setId(i);
-            LayoutParams params = new LayoutParams(240, 400, Gravity.CENTER);
+            int width = (int)getResources().getDimension(R.dimen.overview_item_width);
+            int height = (int)getResources().getDimension(R.dimen.overview_item_height);
+            LayoutParams params = new LayoutParams(width, height, Gravity.CENTER);
             bgLayout.setLayoutParams(params);
             ImageView wallapper = (ImageView) bgLayout.findViewById(R.id.wallpaper_item);
             wallapper.setBackgroundResource(data[i]);
@@ -3074,7 +3079,9 @@ public class Launcher extends Activity
         for (int i = 0;i < data.length; i++) {
             final View bgLayout = LayoutInflater.from(this).inflate(R.layout.set_swipe_effects_item, null);
             bgLayout.setId(i);
-            LayoutParams params = new LayoutParams(240, 400, Gravity.CENTER);
+            int width = (int)getResources().getDimension(R.dimen.overview_item_width);
+            int height = (int)getResources().getDimension(R.dimen.overview_item_height);
+            LayoutParams params = new LayoutParams(width, height, Gravity.CENTER);
             bgLayout.setLayoutParams(params);
             TextView slideItem = (TextView) bgLayout.findViewById(R.id.slide_item);
             Drawable drawable= getResources().getDrawable(data[i]);
@@ -3375,8 +3382,7 @@ public class Launcher extends Activity
      * @param folderInfo The FolderInfo describing the folder to open.
      */
     //M:luobiao@wind-mobi.com 2015-7-15 begin
-    FolderBackground folderForeground = null;
-    FolderBackground folderBackground = null;
+
     FolderIcon  currentFolderIcon = null;
     public void openFolder(FolderIcon folderIcon) {
         currentFolderIcon = folderIcon;
@@ -3388,9 +3394,7 @@ public class Launcher extends Activity
         // Just verify that the folder hasn't already been added to the DragLayer.
         // There was a one-off crash where the folder had a parent already.
         if(LauncherAppState.WOS_FOLDER_KEY){
-            //mWorkspace.enterFolderMode();
-            openFolderBackground();
-        }else{
+            mWorkspace.enterFolderMode();
             if (folder.getParent() == null) {
                 mDragLayer.addView(folder);
                 mDragController.addDropTarget((DropTarget) folder);
@@ -3407,56 +3411,8 @@ public class Launcher extends Activity
             getDragLayer().sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED);
         }
     }
-    //M:luobiao@wind-mobi.com 2015-7-15
-    //A:luobiao@wind-mobi.com 2015-7-15
-    public void openFolderBackground() {
-        FolderIcon folderIcon = currentFolderIcon;
-        Folder folder = folderIcon.getFolder();
-        FolderInfo info = folder.mInfo;
-        info.opened = true;
-        // Just verify that the folder hasn't already been added to the DragLayer.
-        // There was a one-off crash where the folder had a parent already.
-        if (folder.getParent() == null) {
-            DisplayMetrics metircs = new DisplayMetrics();
-            this.getWindowManager().getDefaultDisplay().getMetrics(metircs);
-            //Bitmap mBitmap = Bitmap.createBitmap(fastBlur(shot()), 0, 0,
-            //        metircs.widthPixels,  metircs.heightPixels);
-            //Matrix matrix = new Matrix();
-            //matrix.postScale(1f, 1.081f);
-            //Bitmap bitmap =  Bitmap.createBitmap(mBitmap, 0, 0, mBitmap.getWidth(), mBitmap.getHeight(), matrix, true);
-            //folderBackground = new FolderBackground(this ,bitmap);
 
-            Resources res = getResources();
-            BitmapDrawable mBitmapDrawable = (BitmapDrawable)res.getDrawable(R.drawable.folderbg);
-            folderForeground = new FolderBackground(Launcher.this , mBitmapDrawable.getBitmap());
 
-    		Animation mAlphaAnimation = new AlphaAnimation(1.0f, 0.0f);
-	        mAlphaAnimation.setDuration(250);
-            mAlphaAnimation.setFillAfter(true);
-            mWorkspace.startAnimation(mAlphaAnimation);
-            mHotseat.startAnimation(mAlphaAnimation);
-            mPageIndicators.startAnimation(mAlphaAnimation);
-
-            //mDragLayer.addView(folderBackground);
-            //mDragLayer.addView(folderForeground);
-            //folderBgVisibility(View.GONE);
-            mDragLayer.addView(folder);
-            mDragController.addDropTarget((DropTarget) folder);
-        } else {
-            Log.w(TAG, "Opening folder (" + folder + ") which already has a parent (" +
-                    folder.getParent() + ").");
-        }
-        folder.animateOpen();
-        growAndFadeOutFolderIcon(folderIcon);
-        // Notify the accessibility manager that this folder "window" has appeared and occluded
-        // the workspace items
-        folder.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-        getDragLayer().sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED);
-    }
-    public void folderBgVisibility( int visibility){
-        folderBackground.setVisibility(visibility);
-        folderForeground.setVisibility(visibility);
-    }
     //A:luobiao@wind-mobi.com 2015-7-15
     public void closeFolder() {
         Log.d("LUOBIAO", "Launcher:closeFolder");
@@ -3469,15 +3425,6 @@ public class Launcher extends Activity
             //A:luobiao@wind-mobi.com 2015-7-15 begin
             if(LauncherAppState.WOS_FOLDER_KEY){
                 mWorkspace.exitFolderMode(true);
-                //folderForeground.clearAnimation();
-                //mDragLayer.removeView(folderBackground);
-                Animation mAlphaAnimation = new AlphaAnimation(0.0f, 1.0f);
-                mAlphaAnimation.setDuration(250);
-                mAlphaAnimation.setFillAfter(true);
-                mWorkspace.startAnimation(mAlphaAnimation);
-                mHotseat.startAnimation(mAlphaAnimation);
-                mPageIndicators.startAnimation(mAlphaAnimation);
-                //mDragLayer.removeView(folderForeground);
             }
             //A:luobiao@wind-mobi.com 2015-7-15 end
         }
@@ -3576,7 +3523,7 @@ public class Launcher extends Activity
         View itemUnderLongClick = null;
         if (v.getTag() instanceof ItemInfo) {
             ItemInfo info = (ItemInfo) v.getTag();
-            longClickCellInfo = new CellLayout.CellInfo(v, info);;
+            longClickCellInfo = new CellLayout.CellInfo(v, info);
             itemUnderLongClick = longClickCellInfo.cell;
             resetAddInfo();
         }

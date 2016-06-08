@@ -891,6 +891,7 @@ public class DeviceProfile {
 
         // Layout the Overview Mode
         ViewGroup overviewMode = launcher.getOverviewPanel();
+        int bottom = launcher.getResources().getInteger(R.integer.overview_margin_bottom);
         if (overviewMode != null) {
             Rect r = getOverviewModeButtonBarRect();
             lp = (FrameLayout.LayoutParams) overviewMode.getLayoutParams();
@@ -899,7 +900,7 @@ public class DeviceProfile {
                     calculateOverviewModeWidth(getVisibleChildCount(overviewMode)));
             lp.height = r.height();
             //a:luobiao@wind-mobi.com 20151203 -b
-            lp.setMargins(0, 0, 0, 280);
+            lp.setMargins(0, 0, 0, bottom);
             //a:luobiao@wind-mobi.com 20151203 -e
             overviewMode.setLayoutParams(lp);
         }

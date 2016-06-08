@@ -1702,7 +1702,6 @@ public class Workspace extends SmoothPagedView
     public static int curPageIndex;
     @Override
     protected void screenScrolled(int screenCenter) {
-        Log.d("LUOBIAO", "Workspace:screenScrolled");
         final boolean isRtl = isLayoutRtl();
         super.screenScrolled(screenCenter);
 
@@ -2326,12 +2325,12 @@ public class Workspace extends SmoothPagedView
         mNewScale = 1.0f;
         float finalWorkspaceTranslationY = stateIsSmall ? 0 : 0;
         float finalWorkspaceTranslationX = stateIsSmall ? 0 : 0;
-        float finalPageIndicatorTranslationY = stateIsSmall ? mLauncher.translation : 0 ;
-        float finalHotseatTranslationY = stateIsSmall ? mLauncher.translation : 0 ;
+        float finalPageIndicatorTranslationY = stateIsSmall ? 0 : 0 ;
+        float finalHotseatTranslationY = stateIsSmall ? 0 : 0 ;
         float finalSearchBarTranslationY = stateIsSmall ? 100 : 0;
         if (state != State.NORMAL) {
             if (stateIsSmall){
-                mNewScale = 1.3f;
+                mNewScale = 0.9f;
             }
         }
 
@@ -2349,14 +2348,14 @@ public class Workspace extends SmoothPagedView
         final View hotseat = mLauncher.getHotseat();
         final View pageIndicator = getPageIndicator();
         final View currentPage = this.getPageAt(this.mCurrentPage);
-        currentPage.setPivotX(currentPage.getWidth()* mLauncher.curentX);
-        currentPage.setPivotY(currentPage.getHeight()* mLauncher.curentY);
-        hotseat.setPivotX(hotseat.getWidth()* mLauncher.curentX);
-        hotseat.setPivotY(hotseat.getHeight() * 0.01f);
-        pageIndicator.setPivotX(pageIndicator.getWidth()* mLauncher.curentX);
-        pageIndicator.setPivotY(pageIndicator.getHeight() * 0.01f);
+        currentPage.setPivotX(mLauncher.getLauncherView().getWidth()/2);
+        currentPage.setPivotY(mLauncher.getLauncherView().getHeight()/2);
+        hotseat.setPivotX(mLauncher.getLauncherView().getWidth()/2);
+        hotseat.setPivotY(-mLauncher.getLauncherView().getHeight()/2 + hotseat.getHeight());
+        pageIndicator.setPivotX(pageIndicator.getWidth()/2);
+        pageIndicator.setPivotY(-mLauncher.getLauncherView().getHeight()/2 + hotseat.getHeight() + pageIndicator.getHeight());
         if (animated) {
-            anim.setDuration(2 *duration);
+            anim.setDuration(duration);
             LauncherViewPropertyAnimator scale = new LauncherViewPropertyAnimator(currentPage);
             scale.scaleX(mNewScale)
                     .scaleY(mNewScale)
@@ -3033,7 +3032,6 @@ public class Workspace extends SmoothPagedView
     }
 
     public void beginDragShared(View child, DragSource source) {
-        Log.d("LUOBIAO","Workspace:beginDragShared");
         child.clearFocus();
         child.setPressed(false);
 
@@ -5629,11 +5627,9 @@ public class Workspace extends SmoothPagedView
     public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.d("LUOBIAO", "Workspace:ACTION_DOWN");
                 updateChildrenLayersEnabled(true);
                 break;
             case MotionEvent.ACTION_UP:
-                Log.d("LUOBIAO", "Workspace:ACTION_UP");
                 updateChildrenLayersEnabled(false);
                 break;
         }

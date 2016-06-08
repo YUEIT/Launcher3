@@ -18,10 +18,6 @@ package com.wos.launcher3;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 
 import com.wos.launcher3.compat.LauncherActivityInfoCompat;
 import com.wos.launcher3.compat.LauncherAppsCompat;
@@ -68,8 +64,11 @@ class AllAppsList {
      */
     public void add(AppInfo info) {
         //A:luobiao@wind-mobi.com 20151118 begin hide google folder apps
+
         String packageName=info.componentName.getPackageName();
-        if(packageName.equals("com.wos.launcher3")){
+
+        if(packageName.equals("com.wos.launcher3")||
+                packageName.equals("com.android.stk")){
             return;
         }
         //A:luobiao@wind-mobi.com 20151118 end

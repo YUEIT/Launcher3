@@ -134,7 +134,6 @@ public class DragController {
     /**
      * Used to create a new DragLayer from XML.
      *
-     * @param context The application's context.
      */
     public DragController(Launcher launcher) {
         Resources r = launcher.getResources();
@@ -161,8 +160,6 @@ public class DragController {
      * @param dragInfo The data associated with the object that is being dragged
      * @param dragAction The drag action: either {@link #DRAG_ACTION_MOVE} or
      *        {@link #DRAG_ACTION_COPY}
-     * @param dragRegion Coordinates within the bitmap b for the position of item being dragged.
-     *          Makes dragging feel more precise, e.g. you can clip out a transparent border
      */
     public void startDrag(View v, Bitmap bmp, DragSource source, Object dragInfo, int dragAction,
                           Point extraPadding, float initialDragViewScale) {
@@ -504,7 +501,6 @@ public class DragController {
     }
 
     private void checkTouchMove(DropTarget dropTarget) {
-        Log.d("LUOBIAO","DragControl:checkTouchMove");
         if (dropTarget != null) {
             if (mLastDropTarget != dropTarget) {
                 if (mLastDropTarget != null) {
@@ -522,7 +518,6 @@ public class DragController {
     }
 
     private void checkScrollState(int x, int y) {
-        Log.d("LUOBIAO","DragControl:checkScrollState");
         final int slop = ViewConfiguration.get(mLauncher).getScaledWindowTouchSlop();
         final int delay = mDistanceSinceScroll < slop ? RESCROLL_DELAY : SCROLL_DELAY;
         final DragLayer dragLayer = mLauncher.getDragLayer();
@@ -786,7 +781,6 @@ public class DragController {
         }
 
         public void run() {
-            Log.d("LUOBIAO", "DragControll run");
             if (mDragScroller != null) {
                 if (mDirection == SCROLL_LEFT) {
                     mDragScroller.scrollLeft();
