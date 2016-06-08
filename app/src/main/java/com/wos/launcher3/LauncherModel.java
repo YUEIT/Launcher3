@@ -30,10 +30,9 @@ import android.content.Intent;
 import android.content.Intent.ShortcutIconResource;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.LauncherApps.Callback;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
@@ -1167,7 +1166,6 @@ public class LauncherModel extends BroadcastReceiver
     /**
      * Removes the specified items from the database
      * @param context
-     * @param item
      */
     static void deleteItemsFromDatabase(Context context, final ArrayList<ItemInfo> items) {
         final ContentResolver cr = context.getContentResolver();
@@ -1435,6 +1433,10 @@ public class LauncherModel extends BroadcastReceiver
             Log.d("LUOBIAO", "ACTION_WOS_CHANGE_THEME");
             //android.os.Process.killProcess(android.os.Process.myPid());
             LauncherAppState.themeKey = true;
+            SharedPreferences mSharedPreferences = context.getSharedPreferences("LauncherSettings",context.MODE_WORLD_READABLE);
+            SharedPreferences.Editor editor = mSharedPreferences.edit();
+            editor.putInt("themeIndex",intent.getExtras().getInt("themeIndex",LauncherAppState.DEFAULT_THEME_INDEX));
+            editor.commit();
             mIconCache.initThemeIconConfig(context);
             forceReload();
 

@@ -3,7 +3,6 @@ package com.wos.launcher3;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -16,40 +15,28 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ThemeIconConfig {
-    Context context;
 
+    private Context context;
+    private SharedPreferences mSharedPreferences;
     public ThemeIconConfig(Context context) {
         this.context = context;
+        mSharedPreferences = context.getSharedPreferences("LauncherSettings",context.MODE_WORLD_READABLE);
     }
-    SharedPreferences mSharedPreferences;
+
     public ArrayList<Node> parseXml() {
         ArrayList<Node> nodeList = null;
         Node node = null;
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             XmlPullParser pullParser = factory.newPullParser();
-
-            //A: zhangxutong@wind-mobi.com 2015 07 01 begin
+            int index = mSharedPreferences.getInt("themeIndex", LauncherAppState.DEFAULT_THEME_INDEX);
             StringBuilder fileName = new StringBuilder("theme_icon_config_");
-            int index = android.provider.Settings.System.getInt(context.getContentResolver(), "wos_launcher3_theme_index",LauncherAppState.DEFAULT_THEME_INDEX);
             if(index > 6 ||index < 1){
                 index = LauncherAppState.DEFAULT_THEME_INDEX;
             }
 
             fileName.append(index);
             fileName.append(".xml");
-            //A: zhangxutong@wind-mobi.com 2015 07 01 end
-            mSharedPreferences = context.getSharedPreferences("defaultWallPaper",context.MODE_WORLD_READABLE);
-            boolean defaultWallPaper = mSharedPreferences.getBoolean("defaultWallPaper", true);
-
-            if(defaultWallPaper == true){
-                Log.d("LUOBIAO", "defaultWallPaper == true");
-                setWallPaper(context,index);
-                Editor mEditor = mSharedPreferences.edit();
-                mEditor.putBoolean("defaultWallPaper", false);
-                mEditor.commit();
-            }
-
             pullParser.setInput(context.getResources().getAssets().open(fileName.toString()), "UTF-8");
 
             int eventType = pullParser.getEventType();
@@ -90,7 +77,7 @@ public class ThemeIconConfig {
     }
 
     public void changeWallpaper(){
-        int index = android.provider.Settings.System.getInt(context.getContentResolver(), "wos_launcher3_theme_index",LauncherAppState.DEFAULT_THEME_INDEX);
+        int index = mSharedPreferences.getInt("themeIndex", LauncherAppState.DEFAULT_THEME_INDEX);
         setWallPaper(context ,index);
     }
     public  void setWallPaper(Context context ,int index)

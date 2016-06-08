@@ -29,7 +29,7 @@
         launcher:y="0"
         launcher:spanX="4"
         launcher:spanY="2" />
-   <!--
+
    <favorite
         launcher:packageName="com.android.gallery3d"
         launcher:className="com.android.camera.CameraLauncher"
@@ -78,7 +78,7 @@
         launcher:screen="1"
         launcher:x="3"
         launcher:y="3" />
-    -->
+
     <!-- Right screen [3] -->
     <!--
     <favorite

@@ -120,14 +120,9 @@ public class IconCache {
         // need to set mIconDpi before getting default icon
         UserHandleCompat myUser = UserHandleCompat.myUserHandle();
         mDefaultIcons.put(myUser, makeDefaultIcon(myUser));
-
-        // A: wangqiang@wind-mobi.com 20150206 -s
         //M:luobiao@wind-mobi.com 2015-7-23
-        //mIconConfig = new ThemeIconConfig(context);
-        //mNodeList = mIconConfig.parseXml();
         initThemeIconConfig(context);
         //M:luobiao@wind-mobi.com 2015-7-23
-        // A: wangqiang@wind-mobi.com 20150206 -e
 
     }
     //A:luobiao@wind-mobi.com  2015-7-23

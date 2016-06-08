@@ -22,6 +22,7 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -242,7 +243,8 @@ public class FolderIcon extends FrameLayout implements FolderListener {
                 sSharedInnerRingDrawable = res.getDrawable(R.drawable.portal_ring_inner_holo);
                 //M:luobiao@wind-mobi.com 2015-8-1
                 if(launcher!=null){
-                    int index = android.provider.Settings.System.getInt(launcher.getContentResolver(), "wos_launcher3_theme_index",LauncherAppState.DEFAULT_THEME_INDEX);
+                    SharedPreferences mSharedPreferences = launcher.getSharedPreferences("LauncherSettings",context.MODE_WORLD_READABLE);
+                    int index = mSharedPreferences.getInt("themeIndex", LauncherAppState.DEFAULT_THEME_INDEX);
                     switch(index){
                         case 1:sSharedInnerRingDrawable = res.getDrawable(R.drawable.portal_ring_inner_nolip_holo1);break;
                         case 2:sSharedInnerRingDrawable = res.getDrawable(R.drawable.portal_ring_inner_nolip_holo4);break;

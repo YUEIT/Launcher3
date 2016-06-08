@@ -1120,7 +1120,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
                 (1.0f * folderPivotY / height));
         //M:luobiao@wind-mobi.com 2015-7-15
         if(LauncherAppState.WOS_FOLDER_KEY){
-            lp.width = 630;
+            lp.width = width;
             lp.height = height;
             lp.x = 50;
             lp.y = 600 - height / 2;

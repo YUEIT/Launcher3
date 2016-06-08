@@ -443,7 +443,7 @@ public class Launcher extends Activity
         //luobiao@wind-mobi.com 2015-3-14 begin
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("scrollEffect",Context.MODE_WORLD_READABLE);
+        SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("LauncherSettings",Context.MODE_WORLD_READABLE);
         LauncherAppState.effectIndex = mSharedPreferences.getInt("effectIndex", 0);
         //luobiao@wind-mobi.com 2015-3-14 end
         LauncherAppState.setApplicationContext(getApplicationContext());
@@ -1818,7 +1818,7 @@ public class Launcher extends Activity
             }
             //A:luobiao@wind-mobi.com 20151201 -b
             if(LauncherAppState.ACTION_WOS_OVERSCROLL_EFFECT.equals(action)){
-                SharedPreferences mSharedPreferences = context.getApplicationContext().getSharedPreferences("scrollEffect",Context.MODE_WORLD_READABLE);
+                SharedPreferences mSharedPreferences = context.getApplicationContext().getSharedPreferences("LauncherSettings",Context.MODE_WORLD_READABLE);
                 int effectIndex = intent.getIntExtra("effectIndex", 0);
                 LauncherAppState.effectIndex = effectIndex;
                 Editor mEditor = mSharedPreferences.edit();
@@ -3084,7 +3084,7 @@ public class Launcher extends Activity
             slideItem.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("scrollEffect",Context.MODE_WORLD_READABLE);
+                    SharedPreferences mSharedPreferences = getApplicationContext().getSharedPreferences("LauncherSettings",Context.MODE_WORLD_READABLE);
                     LauncherAppState.effectIndex = bgLayout.getId();
                     Editor mEditor = mSharedPreferences.edit();
                     mEditor.putInt("effectIndex", bgLayout.getId());

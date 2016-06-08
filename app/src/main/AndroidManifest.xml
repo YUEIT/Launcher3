@@ -20,8 +20,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wos.launcher3"
-    android:versionCode="2012"
-    android:versionName="2.0.12_d260">
+    android:versionCode="1"
+    android:versionName="3.0.0">
     <!--android:sharedUserId="android.uid.system" -->
     <uses-sdk android:targetSdkVersion="23" android:minSdkVersion="16"/>
 
@@ -128,26 +128,11 @@
             android:finishOnCloseSystemDialogs="true"
             android:process=":wallpaper_chooser">
             <intent-filter>
-                <action android:name="android.intent.action.SET_WALLPAPER" />
+                <!--<action android:name="android.intent.action.SET_WALLPAPER" />-->
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--
-        <activity
-            android:name="com.wos.launcher3.WallpaperCropActivity"
-            android:theme="@style/Theme.WallpaperCropper"
-            android:label="@string/crop_wallpaper"
-            android:icon="@mipmap/ic_launcher_wallpaper"
-            android:finishOnCloseSystemDialogs="true"
-            android:process=":wallpaper_chooser">
-            <intent-filter>
-                <action android:name="android.service.wallpaper.CROP_AND_SET_WALLPAPER" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
-            </intent-filter>
-        </activity>
-        -->
-        <!-- Debugging tools -->
+
         <activity
             android:name="com.wos.launcher3.MemoryDumpActivity"
             android:theme="@android:style/Theme.NoDisplay"
