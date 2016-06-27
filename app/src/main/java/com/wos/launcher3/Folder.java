@@ -522,7 +522,7 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 1.0f);
             final ObjectAnimator oa =
                     LauncherAnimUtils.ofPropertyValuesHolder(this, alpha, scaleX, scaleY);
-            oa.setDuration(250);
+
             openFolderAnim = oa;
 
             setLayerType(LAYER_TYPE_HARDWARE, null);
@@ -545,6 +545,8 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             setTranslationY(transY);
             PropertyValuesHolder tx = PropertyValuesHolder.ofFloat("translationX", transX, 0);
             PropertyValuesHolder ty = PropertyValuesHolder.ofFloat("translationY", transY, 0);
+            PropertyValuesHolder sx = PropertyValuesHolder.ofFloat("scaleX", 0.7f, 1.0f);
+            PropertyValuesHolder sy = PropertyValuesHolder.ofFloat("scaleY", 0.7f, 1.0f);
 
             int rx = (int) Math.max(Math.max(width - getPivotX(), 0), getPivotX());
             int ry = (int) Math.max(Math.max(height - getPivotY(), 0), getPivotY());
@@ -555,13 +557,13 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             reveal.setDuration(mMaterialExpandDuration);
             reveal.setInterpolator(new LogDecelerateInterpolator(100, 0));
 
-            mContent.setAlpha(0f);
+            //mContent.setAlpha(0f);
             Animator iconsAlpha = LauncherAnimUtils.ofFloat(mContent, "alpha", 0f, 1f);
             iconsAlpha.setDuration(mMaterialExpandDuration);
             iconsAlpha.setStartDelay(mMaterialExpandStagger);
             iconsAlpha.setInterpolator(new AccelerateInterpolator(1.5f));
 
-            mFolderName.setAlpha(0f);
+            //mFolderName.setAlpha(0f);
             Animator textAlpha = LauncherAnimUtils.ofFloat(mFolderName, "alpha", 0f, 1f);
             textAlpha.setDuration(mMaterialExpandDuration);
             textAlpha.setStartDelay(mMaterialExpandStagger);
@@ -572,10 +574,14 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
             drift.setStartDelay(mMaterialExpandStagger);
             drift.setInterpolator(new LogDecelerateInterpolator(60, 0));
 
-            anim.play(drift);
-            anim.play(iconsAlpha);
-            anim.play(textAlpha);
-            anim.play(reveal);
+            Animator scale = LauncherAnimUtils.ofPropertyValuesHolder(this, sx, sy);
+            scale.setInterpolator(new LogDecelerateInterpolator(100, 0));
+
+            //anim.play(drift);
+            anim.play(scale);
+            //anim.play(iconsAlpha);
+            //anim.play(textAlpha);
+            //anim.play(reveal);
 
             openFolderAnim = anim;
 
@@ -657,11 +663,12 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
     public void animateClosed() {
         if (!(getParent() instanceof DragLayer)) return;
         PropertyValuesHolder alpha = PropertyValuesHolder.ofFloat("alpha", 0);
-        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0.9f);
-        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0.9f);
+        PropertyValuesHolder scaleX = PropertyValuesHolder.ofFloat("scaleX", 0.7f);
+        PropertyValuesHolder scaleY = PropertyValuesHolder.ofFloat("scaleY", 0.7f);
+
         final ObjectAnimator oa =
                 LauncherAnimUtils.ofPropertyValuesHolder(this, alpha, scaleX, scaleY);
-
+        oa.setInterpolator(new LogDecelerateInterpolator(100, 0));
         oa.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -1112,8 +1119,8 @@ public class Folder extends LinearLayout implements DragSource, View.OnClickList
 
         int folderPivotX = width / 2 + (centeredLeft - left);
         int folderPivotY = height / 2 + (centeredTop - top);
-        setPivotX(folderPivotX);
-        setPivotY(folderPivotY);
+        setPivotX(width / 2);
+        setPivotY(height / 2);
         mFolderIconPivotX = (int) (mFolderIcon.getMeasuredWidth() *
                 (1.0f * folderPivotX / width));
         mFolderIconPivotY = (int) (mFolderIcon.getMeasuredHeight() *

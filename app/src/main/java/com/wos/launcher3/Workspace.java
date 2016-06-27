@@ -1745,11 +1745,11 @@ public class Workspace extends SmoothPagedView
                             changeScreenEffect(isInOverscroll, i, v, scrollProgress,"cube-out");
                             break;
                         case 2:
-                            changeScreenEffect(isInOverscroll, i, v, scrollProgress,"zoom-in");
+                            //changeScreenEffect(isInOverscroll, i, v, scrollProgress,"zoom-in");
+                            changeScreenEffect(isInOverscroll, i, v, scrollProgress,"stack");
                             break;
                         case 3:
-                            //changeScreenEffect(isInOverscroll, i, v, scrollProgress,"stack");
-                            changeScreenEffect(isInOverscroll, i, v, scrollProgress,"none");
+                            changeScreenEffect(isInOverscroll, i, v, scrollProgress,"rotate-down");
                             break;
                         case 4:
                             changeScreenEffect(isInOverscroll, i, v, scrollProgress,"flip");
