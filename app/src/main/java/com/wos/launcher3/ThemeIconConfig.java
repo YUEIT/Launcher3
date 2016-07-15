@@ -5,14 +5,19 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 public class ThemeIconConfig {
 
@@ -101,6 +106,66 @@ public class ThemeIconConfig {
     class Node {
         String className;
         String drawableName;
+    }
+
+    public static String themePath = Environment.getExternalStorageDirectory()+"/theme";
+
+    /*
+    直接读取zip包中内容
+     */
+    public InputStream readZipFile(String filePatch) throws IOException {
+        String themeName = mSharedPreferences.getString("themeName", "theme01.wos");
+        String themeXmlpatch  = themePath+"/"+themeName;
+        File xmlFile = new File(themeXmlpatch);
+        ZipFile zipFile = new ZipFile(xmlFile);
+        ZipEntry zipEntry = zipFile.getEntry(filePatch);
+        InputStream read = zipFile.getInputStream(zipEntry);
+        return read;
+    }
+    public ArrayList<Node> parseInternetXml() {
+        ArrayList<Node> nodeList = null;
+        Node node = null;
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser pullParser = factory.newPullParser();
+
+            InputStream slideInputStream = readZipFile("theme.xml");
+            Log.d("LUOBIAO","slideInputStream:"+slideInputStream);
+            //InputStream slideInputStream = new FileInputStream(themeXmlpatch);
+            factory.setNamespaceAware(true);
+            pullParser.setInput(slideInputStream, "UTF-8");
+
+            int eventType = pullParser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                String nodeName = pullParser.getName();
+                switch (eventType) {
+                    case XmlPullParser.START_DOCUMENT:
+                        nodeList = new ArrayList<>();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        if (nodeName.equals("item")) {
+                            node = new Node();
+                            node.className = pullParser.getAttributeValue(0);
+                            node.drawableName = pullParser.getAttributeValue(1);
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if (nodeName.equals("item")) {
+                            nodeList.add(node);
+                            node = null;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                eventType = pullParser.next();
+            }
+
+        } catch (Exception e) {
+            return null;
+        }
+        return nodeList;
     }
 
 }

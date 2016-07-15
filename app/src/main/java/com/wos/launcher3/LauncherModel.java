@@ -1436,8 +1436,14 @@ public class LauncherModel extends BroadcastReceiver
             SharedPreferences mSharedPreferences = context.getSharedPreferences("LauncherSettings",context.MODE_WORLD_READABLE);
             SharedPreferences.Editor editor = mSharedPreferences.edit();
             editor.putInt("themeIndex",intent.getExtras().getInt("themeIndex",LauncherAppState.DEFAULT_THEME_INDEX));
+            editor.putString("themeName",intent.getExtras().getString("themeName",null));
+            Log.d("LUOBIAO","themeName:"+intent.getExtras().getString("themeName",null));
             editor.commit();
-            mIconCache.initThemeIconConfig(context);
+            if(LauncherAppState.INTERNET_THEME) {
+                mIconCache.initInternetTheme(context);
+            }else{
+                mIconCache.initThemeIconConfig(context);
+            }
             forceReload();
 
         }

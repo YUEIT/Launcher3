@@ -26,6 +26,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.wos.launcher3.compat.LauncherAppsCompat;
@@ -33,8 +34,8 @@ import com.wos.launcher3.compat.PackageInstallerCompat.PackageInstallInfo;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
 //A:luobiao@wind-mobi.com 2015-8-14 begin
-import android.os.PowerManager;
 //A:luobiao@wind-mobi.com 2015-8-14 end
 public class LauncherAppState implements DeviceProfile.DeviceProfileCallbacks {
     private static final String TAG = "LauncherAppState";
@@ -65,6 +66,7 @@ public class LauncherAppState implements DeviceProfile.DeviceProfileCallbacks {
     public static boolean SHORTCUT_THEME_KEY = false;//open:true
     public static boolean themeKey = false;
     public static boolean WOS_FOLDER_KEY = true; //open:true
+    public static boolean INTERNET_THEME = true;
     private LauncherApplication mApp;
     private PowerManager mPowerManager;
     public boolean isPowerSaveMode(){

@@ -105,7 +105,7 @@ public class IconCache {
     private Launcher launcher;
     // A: wangqiang@wind-mobi.com 20150206 -s
     private ThemeIconConfig mIconConfig;
-    private ArrayList<com.wos.launcher3.ThemeIconConfig.Node> mNodeList = new ArrayList<com.wos.launcher3.ThemeIconConfig.Node>();
+    private ArrayList<com.wos.launcher3.ThemeIconConfig.Node> mNodeList = new ArrayList<>();
     // A: wangqiang@wind-mobi.com 20150206 -e
 
     public IconCache(Context context) {
@@ -121,7 +121,11 @@ public class IconCache {
         UserHandleCompat myUser = UserHandleCompat.myUserHandle();
         mDefaultIcons.put(myUser, makeDefaultIcon(myUser));
         //M:luobiao@wind-mobi.com 2015-7-23
-        initThemeIconConfig(context);
+        if(LauncherAppState.INTERNET_THEME) {
+            initInternetTheme(context);
+        }else{
+            initThemeIconConfig(context);
+        }
         //M:luobiao@wind-mobi.com 2015-7-23
 
     }
@@ -134,6 +138,16 @@ public class IconCache {
         }
     }
 
+    public void initInternetTheme(Context context){
+        mIconConfig = new ThemeIconConfig(context);
+        mNodeList = mIconConfig.parseInternetXml();
+        if(mNodeList == null){
+            mNodeList = new ArrayList<>();
+        }
+        if(LauncherAppState.themeKey){
+            //mIconConfig.changeWallpaper();
+        }
+    }
     public void setLauncher(Launcher launcher){
         this.launcher = launcher;
     }
@@ -168,6 +182,22 @@ public class IconCache {
 
         }
         return drawable;
+    }
+
+    public Bitmap getInternetBitmapResource(String packageName , String className) {
+        Bitmap icon = null;
+        try {
+            for (ThemeIconConfig.Node node : mNodeList) {
+                if (node.className.equals(packageName) || node.className.equals(className)) {
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        String patch  = "res/"+node.drawableName+".png";
+                        icon = BitmapFactory.decodeStream(mIconConfig.readZipFile(patch));
+                }
+            }
+        } catch (Exception e) {
+            icon = null;
+        }
+        return icon;
     }
     //A:luobiao@wind-mobi.com 20151215 -e
     //A:luobiao@wind-mobi.com 2015-7-23
@@ -428,16 +458,26 @@ public class IconCache {
 
                 entry.contentDescription = mUserManager.getBadgedLabelForUser(entry.title, user);
 
-                Drawable drawable = getDrawableResource(info.getApplicationInfo().packageName , info.getComponentName().getClassName());
-                if (drawable != null) {
-                    entry.icon = Utilities.createIconBitmap(drawable, mContext);
+                if(LauncherAppState.INTERNET_THEME) {
+                    Bitmap icon = getInternetBitmapResource(info.getApplicationInfo().packageName , info.getComponentName().getClassName());
+                    if(icon != null) {
+                        entry.icon = Utilities.createIconBitmap(new BitmapDrawable(mContext.getResources(), icon), mContext);
+                    }else {
+                        Utilities.isPushApp = true;
+                        entry.icon = Utilities.createIconBitmap(info.getBadgedIcon(mIconDpi), mContext);
+                        Utilities.isPushApp = false;
+                    }
+                }else{
+                    Drawable drawable = getDrawableResource(info.getApplicationInfo().packageName , info.getComponentName().getClassName());
+                    if (drawable != null) {
+                        entry.icon = Utilities.createIconBitmap(drawable, mContext);
+                    } else {
+                        Utilities.isPushApp = true;
+                        entry.icon = Utilities.createIconBitmap(info.getBadgedIcon(mIconDpi), mContext);
+                        Utilities.isPushApp = false;
+                    }
                 }
-                else
-                {
-                    Utilities.isPushApp = true;
-                    entry.icon = Utilities.createIconBitmap(info.getBadgedIcon(mIconDpi), mContext);
-                    Utilities.isPushApp = false;
-                }
+
 
             } else {
                 entry.title = "";
