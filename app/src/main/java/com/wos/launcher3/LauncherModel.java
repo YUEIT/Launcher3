@@ -1425,7 +1425,7 @@ public class LauncherModel extends BroadcastReceiver
                     callbacks.bindSearchablesChanged();
                 }
             }
-        } 
+        }
         //A: zhangxutong@wind-mobi.com 2015 07 02 begin
         //M: luobiao@wind-mobi.com 2015-7-23
         else if (LauncherAppState.ACTION_WOS_CHANGE_THEME.equals(action) && LauncherAppState.themeKey == false)
